@@ -30,7 +30,8 @@ public class OrbitalFactory : MonoBehaviour
     [SerializeField] public List<Material> materials;
     [SerializeField] private List<GameObject> m_orbitalClouds;
 
-    public List<GameObject> MakeOrbital(int atomicNumber, Element element)
+
+    public List<Cloud> MakeOrbital(int atomicNumber, Element element)
     {      
         GameObject orbital = null;
 
@@ -39,7 +40,7 @@ public class OrbitalFactory : MonoBehaviour
 
         Vector3 scale;
         float offset;
-        List<GameObject> fullOrbital = new List<GameObject>();
+        List<Cloud> fullOrbital = new List<Cloud>();
         switch (atomicNumber)
         {        
             case 1:
@@ -49,7 +50,7 @@ public class OrbitalFactory : MonoBehaviour
                 orbital.transform.localScale = scale;
                 orbital.transform.SetParent(element.transform);
                 orbital.GetComponent<Renderer>().material = materials[0];
-                fullOrbital.Add(orbital);
+                fullOrbital.Add(new Cloud(orbital, 1,1, materials));
                 // -1,1
                 //element.excitement = -1;
                 break;                
@@ -59,8 +60,8 @@ public class OrbitalFactory : MonoBehaviour
                 orbital = (GameObject)Instantiate(m_orbitalClouds[0], element.transform.position, Quaternion.identity);
                 orbital.transform.localScale = scale;
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
 
                 // 0
                 //element.excitement = 0;
@@ -72,7 +73,7 @@ public class OrbitalFactory : MonoBehaviour
                 orbital.transform.localScale = scale;
                 orbital.transform.SetParent(element.transform);
                 orbital.GetComponent<Renderer>().material = materials[0];
-                fullOrbital.Add(orbital);
+                fullOrbital.Add(new Cloud(orbital, 1, 1, materials));
 
                 // 1
                 //element.excitement = 1;
@@ -83,8 +84,8 @@ public class OrbitalFactory : MonoBehaviour
                 orbital = (GameObject)Instantiate(m_orbitalClouds[0], element.transform.position, Quaternion.identity);
                 orbital.transform.localScale = scale;
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0,0, materials));
 
                 // 2
                 //element.excitement = 2;
@@ -96,12 +97,12 @@ public class OrbitalFactory : MonoBehaviour
                 orbital = (GameObject)Instantiate(m_orbitalClouds[1], element.transform.position + element.transform.forward * offset, element.transform.rotation * Quaternion.Euler(0, 180, 0));
                 orbital.transform.SetParent(element.transform);
                 orbital.GetComponent<Renderer>().material = materials[0];
-                fullOrbital.Add(orbital);
+                fullOrbital.Add(new Cloud(orbital, 1,1, materials));
                 //+-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[2], element.transform.position + element.transform.forward * -offset, element.transform.rotation * Quaternion.Euler(0, 0, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
 
                 // 3
                 break;
@@ -112,22 +113,22 @@ public class OrbitalFactory : MonoBehaviour
                 orbital = (GameObject)Instantiate(m_orbitalClouds[1], element.transform.position + element.transform.forward * offset, element.transform.rotation * Quaternion.Euler(0, 180, 0));
                 orbital.transform.SetParent(element.transform);
                 orbital.GetComponent<Renderer>().material = materials[0];
-                fullOrbital.Add(orbital);
+                fullOrbital.Add(new Cloud(orbital, 1, 1, materials));
                 //x-
-                orbital = (GameObject)Instantiate(m_orbitalClouds[2], element.transform.position + element.transform.forward * -offset, element.transform.rotation * Quaternion.Euler(0, 0, 90));
+                orbital = (GameObject)Instantiate(m_orbitalClouds[1], element.transform.position + element.transform.forward * -offset, element.transform.rotation * Quaternion.Euler(0, 0, 90));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials)); ;
                 //y+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[3], element.transform.position + element.transform.right * offset, element.transform.rotation * Quaternion.Euler(0, -90, 0));
                 orbital.transform.SetParent(element.transform);
                 orbital.GetComponent<Renderer>().material = materials[0];
-                fullOrbital.Add(orbital);
+                fullOrbital.Add(new Cloud(orbital, 1, 1, materials));
                 //y-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[4], element.transform.position + element.transform.right * -offset, element.transform.rotation * Quaternion.Euler(0, 90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
 
                 // -4,4
                 break;
@@ -137,32 +138,32 @@ public class OrbitalFactory : MonoBehaviour
                 orbital = (GameObject)Instantiate(m_orbitalClouds[1], element.transform.position + element.transform.forward * offset, element.transform.rotation * Quaternion.Euler(0, 180, 0));
                 orbital.transform.SetParent(element.transform);
                 orbital.GetComponent<Renderer>().material = materials[0];
-                fullOrbital.Add(orbital);
+                fullOrbital.Add(new Cloud(orbital, 1, 1, materials));
                 //x-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[2], element.transform.position + element.transform.forward * -offset, element.transform.rotation * Quaternion.Euler(0, 0, 90));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //y+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[3], element.transform.position + element.transform.right * offset, element.transform.rotation * Quaternion.Euler(0, -90, 0));
                 orbital.transform.SetParent(element.transform);
                 orbital.GetComponent<Renderer>().material = materials[0];
-                fullOrbital.Add(orbital);
+                fullOrbital.Add(new Cloud(orbital, 1, 1, materials));
                 //y-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[4], element.transform.position + element.transform.right * -offset, element.transform.rotation * Quaternion.Euler(0, 90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //z+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[5], element.transform.position + element.transform.up * offset, element.transform.rotation * Quaternion.Euler(90, -90, 0));
                 orbital.transform.SetParent(element.transform);
                 orbital.GetComponent<Renderer>().material = materials[0];
-                fullOrbital.Add(orbital);
+                fullOrbital.Add(new Cloud(orbital, 1, 1, materials));
                 //z-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[6], element.transform.position + element.transform.up * -offset, element.transform.rotation * Quaternion.Euler(-90, 90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
 
             // -3,3,5
             break;
@@ -171,33 +172,33 @@ public class OrbitalFactory : MonoBehaviour
                 //x+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[1], element.transform.position + element.transform.forward * offset, element.transform.rotation * Quaternion.Euler(0, 180, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //x-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[2], element.transform.position + element.transform.forward * -offset, element.transform.rotation * Quaternion.Euler(0, 0, 90));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //y+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[3], element.transform.position + element.transform.right * offset, element.transform.rotation * Quaternion.Euler(0, -90, 0));
                 orbital.transform.SetParent(element.transform);
                 orbital.GetComponent<Renderer>().material = materials[0];
-                fullOrbital.Add(orbital);
+                fullOrbital.Add(new Cloud(orbital, 1, 1, materials));
                 //y-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[4], element.transform.position + element.transform.right * -offset, element.transform.rotation * Quaternion.Euler(0, 90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //z+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[5], element.transform.position + element.transform.up * offset, element.transform.rotation * Quaternion.Euler(90, -90, 0));
                 orbital.transform.SetParent(element.transform);
                 orbital.GetComponent<Renderer>().material = materials[0];
-                fullOrbital.Add(orbital);
+                fullOrbital.Add(new Cloud(orbital, 1, 1, materials));
                 //z-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[6], element.transform.position + element.transform.up * -offset, element.transform.rotation * Quaternion.Euler(-90, 90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
 
                 // -2
                 break;
@@ -206,33 +207,33 @@ public class OrbitalFactory : MonoBehaviour
                 //x+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[1], element.transform.position + element.transform.forward * offset, element.transform.rotation * Quaternion.Euler(0, 180, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //x-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[2], element.transform.position + element.transform.forward * -offset, element.transform.rotation * Quaternion.Euler(0, 0, 90));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //y+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[3], element.transform.position + element.transform.right * offset, element.transform.rotation * Quaternion.Euler(0, -90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //y-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[4], element.transform.position + element.transform.right * -offset, element.transform.rotation * Quaternion.Euler(0, 90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //z+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[5], element.transform.position + element.transform.up * offset, element.transform.rotation * Quaternion.Euler(90, -90, 0));
                 orbital.transform.SetParent(element.transform);
                 orbital.GetComponent<Renderer>().material = materials[0];
-                fullOrbital.Add(orbital);
+                fullOrbital.Add(new Cloud(orbital, 1, 1, materials));
                 //z-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[6], element.transform.position + element.transform.up * -offset, element.transform.rotation * Quaternion.Euler(-90, 90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 // -1
                 break;
             case 10:
@@ -240,33 +241,33 @@ public class OrbitalFactory : MonoBehaviour
                 //x+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[1], element.transform.position + element.transform.forward * offset, element.transform.rotation * Quaternion.Euler(0, 180, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //x-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[2], element.transform.position + element.transform.forward * -offset, element.transform.rotation * Quaternion.Euler(0, 0, 90));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //y+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[3], element.transform.position + element.transform.right * offset, element.transform.rotation * Quaternion.Euler(0, -90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //y-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[4], element.transform.position + element.transform.right * -offset, element.transform.rotation * Quaternion.Euler(0, 90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //z+
                 orbital = (GameObject)Instantiate(m_orbitalClouds[5], element.transform.position + element.transform.up * offset, element.transform.rotation * Quaternion.Euler(90, -90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 //z-
                 orbital = (GameObject)Instantiate(m_orbitalClouds[6], element.transform.position + element.transform.up * -offset, element.transform.rotation * Quaternion.Euler(-90, 90, 0));
                 orbital.transform.SetParent(element.transform);
-                orbital.GetComponent<Renderer>().material = materials[2];
-                fullOrbital.Add(orbital);
+                orbital.GetComponent<Renderer>().material = materials[1];
+                fullOrbital.Add(new Cloud(orbital, 0, 0, materials));
                 // 0
                 break;
             case 11:
@@ -295,6 +296,31 @@ public class OrbitalFactory : MonoBehaviour
                 orbital.transform.localScale = scale;
                 break;
         }
+
+        foreach (Cloud cloud in fullOrbital)
+        {
+            // Debug.Log("posCharge = " + cloud.positiveCharge);
+            switch (cloud.positiveCharge)
+            {
+                case 0:
+                    // green
+                    cloud.SetMaterial(2);
+                    break;
+                case 1:
+                    // red
+                    cloud.SetMaterial(0);
+                    break;
+                case 2:
+                    // yellow
+                    cloud.SetMaterial(1);
+                    break;
+                default:
+                    // failcolor
+                    cloud.SetMaterial(3);
+                    break;
+            }
+        }
+
         return fullOrbital;
     }
 }
